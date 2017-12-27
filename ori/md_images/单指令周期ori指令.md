@@ -5,7 +5,6 @@
 ## ori指令
 ori进行逻辑“或”运算，指令格式如图：
 ![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/ori.png)
-![image](E:\笔记\Verilog\ori\ori.png)
 指令码为001101，处理器通过指令码识别出ori指令
 
 ori指令作用：将16位立即数immediate进行无符号扩展至32位，与rs寄存器里的值进行“或”运算，结果放入rt寄存器中
@@ -19,7 +18,7 @@ ori指令作用：将16位立即数immediate进行无符号扩展至32位，与r
 
 ## 五级流水线中的ori指令
 **OpenMIPS的原始数据流图**：
-![image](E:\笔记\Verilog\ori\MIPS_ORI.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/MIPS_ORI.png)
 ori指令通过原始的数据流图所表示的数据流向即可完成操作。
 - 取指：取出指令寄存器中的ori指令，PC值递增，准备取出下一条指令
 - 译码：对ori指令译码，从寄存器中取出第一个操作数的值，对立即数进行扩展后作为第二个操作数的值
@@ -28,8 +27,7 @@ ori指令通过原始的数据流图所表示的数据流向即可完成操作�
 - 回写：将运算结果保存到目的寄存器
 
 **原始的OpenMIPS五级流水线系统结构图**：
-![image](E:\笔记\Verilog\ori\system_struct_ori.png)
-
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/system_struct_ori.png)
 ## 单指令周期ori指令的实现
 五级流水线的好处是通过多个硬件处理单元并行执行来加快指令的执行速度，但是抱着学习计算机组成原理而言不需要实现高超的处理器性能，主旨实现指令功能和处理器工作原理，将五级流水线合成单指令周期执行。
 
@@ -40,7 +38,7 @@ ori指令通过原始的数据流图所表示的数据流向即可完成操作�
 **单指令周期在第一个时钟开始执行取指、译码、执行，在第二个时钟执行回写阶段**
 
 **单指令周期系统结构图：**
-![image](E:\笔记\Verilog\ori\ori_new.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/ori_new.png)
 
 ### 1. 取指
 通过PC模块，PC值在复位时保持0，每个时钟上升沿到来时PC值加4（一条指令对应4个字节），将PC值传入指令存储器模块，通过指令存储器模块取得指令
@@ -566,7 +564,7 @@ endmodule
 ```
 ori $1,$0,0x1100
 ```
-![image](E:\笔记\Verilog\ori\ori_01.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/ori_01.png)
 转化为16进制为0x34011100
 
 在inst_rom.data,写入要执行的指令
@@ -593,4 +591,4 @@ ori $1,$1,0x4400    # $1 = $1 | 0x4400 = 0x5520
 ori $1,$1,0x0044    # $1 = $1 | 0x0044 = 0x5564
 ```
 执行寄存器的值：
-![image](E:\笔记\Verilog\ori\reg.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/reg.png)
