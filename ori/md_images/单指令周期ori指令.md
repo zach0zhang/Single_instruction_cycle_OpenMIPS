@@ -4,6 +4,7 @@
 
 ## ori指令
 ori进行逻辑“或”运算，指令格式如图：
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/ori.png)
 ![image](E:\笔记\Verilog\ori\ori.png)
 指令码为001101，处理器通过指令码识别出ori指令
 
