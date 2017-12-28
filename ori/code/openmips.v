@@ -55,6 +55,7 @@ id id0(
 );
 //Regfile real
 regfile regfile1(
+    .clk(clk),
     .rst(rst),
     //从WB模块传来信息
     .we(wb_wreg), .waddr(wb_wd),
@@ -72,13 +73,12 @@ ex ex0(
     .aluop_i(id_aluop),   .alusel_i(id_alusel),
     .reg1_i(id_reg1),     .reg2_i(id_reg2),
     .wd_i(id_wd),         .wreg_i(id_wreg),
-    //送回Regfile模块的信息
+    //送到WB模块的信息
     .wd_o(ex_wd),         .wreg_o(ex_wreg),
     .wdata_o(ex_wdata)
 );
 //WB real
 wb wb0(
-    .clk(clk),
     .rst(rst),
     .ex_wd(ex_wd),         .ex_wreg(ex_wreg),
     .ex_wdata(ex_wdata),

@@ -226,6 +226,8 @@ endmodule
 ```
 `include "defines.v"
 module regfile(
+  
+    input wire clk,
     input wire rst,
 
     //写端口
@@ -248,7 +250,7 @@ module regfile(
 reg[`RegBus] regs[0:`RegNum-1];
 
 //写操作
-always @ (*) begin
+always @ (posedge clk) begin
     if(rst==`RstDisable)begin
         if((we==`WriteEnable) && (waddr !=`RegNumLog2'h0))begin
             regs[waddr]<=wdata;
@@ -263,9 +265,6 @@ always @ (*) begin
     end
     else if(raddr1==`RegNumLog2'h0) begin
         rdata1<=`ZeroWord;
-    end
-    else if((raddr1==waddr) && (we==`WriteEnable) && (re1==`ReadEnable)) begin
-        rdata1<=wdata;
     end
     else if(re1==`ReadEnable) begin
         rdata1<=regs[raddr1];
@@ -282,9 +281,6 @@ always @ (*) begin
     end
     else if(raddr2==`RegNumLog2'h0) begin
         rdata2<=`ZeroWord;
-    end
-    else if((raddr2==waddr) && (we==`WriteEnable) && (re2==`ReadEnable)) begin
-        rdata2<=wdata;
     end
     else if(re2==`ReadEnable) begin
         rdata2<=regs[raddr2];
@@ -367,7 +363,6 @@ endmodule
 ```
 `include "defines.v"
 module wb(
-	input	wire									clk,
 	input wire										rst,
 	
 
@@ -383,7 +378,7 @@ module wb(
 	
 );
 
-	always @ (negedge clk) begin
+	always @ (*) begin
 		if(rst == `RstEnable) begin
 			wb_wd <= `NOPRegAddr;
 			wb_wreg <= `WriteDisable;
@@ -397,7 +392,6 @@ module wb(
 			
 
 endmodule
-
 ```
 ### 5.顶层模块调用
 将上面所有模块实例化并连接起来
@@ -462,6 +456,7 @@ id id0(
 );
 //Regfile real
 regfile regfile1(
+    .clk(clk),
     .rst(rst),
     //从WB模块传来信息
     .we(wb_wreg), .waddr(wb_wd),
@@ -479,13 +474,12 @@ ex ex0(
     .aluop_i(id_aluop),   .alusel_i(id_alusel),
     .reg1_i(id_reg1),     .reg2_i(id_reg2),
     .wd_i(id_wd),         .wreg_i(id_wreg),
-    //送回Regfile模块的信息
+    //送到WB模块的信息
     .wd_o(ex_wd),         .wreg_o(ex_wreg),
     .wdata_o(ex_wdata)
 );
 //WB real
 wb wb0(
-    .clk(clk),
     .rst(rst),
     .ex_wd(ex_wd),         .ex_wreg(ex_wreg),
     .ex_wdata(ex_wdata),
@@ -495,6 +489,7 @@ wb wb0(
         
 endmodule
 ```
+
 ### 仿真验证
 为了仿真验证，建立一个SOPC，其中包括之前的顶层模块和指令存储器ROM，顶层模块从指令存储器中读取指令，指令进入顶层模块开始执行
 
@@ -592,3 +587,4 @@ ori $1,$1,0x0044    # $1 = $1 | 0x0044 = 0x5564
 ```
 执行寄存器的值：
 ![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/ori/md_images/reg.png)
+

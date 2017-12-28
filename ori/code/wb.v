@@ -1,6 +1,5 @@
 `include "defines.v"
 module wb(
-	input	wire									clk,
 	input wire										rst,
 	
 
@@ -16,7 +15,7 @@ module wb(
 	
 );
 
-	always @ (negedge clk) begin
+	always @ (*) begin
 		if(rst == `RstEnable) begin
 			wb_wd <= `NOPRegAddr;
 			wb_wreg <= `WriteDisable;
