@@ -6,7 +6,7 @@ MIPS指令集架构中定义6条移动操作指令：**movn、movz、mfhi、mthi
 HI、LO寄存器用于保存乘法、除法结果
 
 6条移动操作指令格式:
-![image](E:\笔记\Verilog\move\res_move.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/move/md_images/res_move.png)
 由指令格式可以看出指令码都是6'b000000(bit26\~31)，由功能码(0\~5bit)判断是哪个指令,并且指令6~10bit都是0
 - **movn**(功能码是6'b001011):用法：movn rd, rs, rt；作用：if rt != 0 then rd <- rs(如果rt通用寄存器里的值不为0，则将地址为rs的通用寄存器的值赋值给地址为rd的通用寄存器)
 - **movz**(功能码是6'b001010):用法：movn rd, rs, rt；作用：if rt == 0 then rd <- rs(如果rt通用寄存器里的值为0，则将地址为rs的通用寄存器的值赋值给地址为rd的通用寄存器)
@@ -19,7 +19,7 @@ HI、LO寄存器用于保存乘法、除法结果
 1. 增加HILO模块，实现HI、LO寄存器
 2. 增加执行模块EX的输入接口，接收从HILO模块传来的HI、LO寄存器的值；输出到WB模块是否要写HILO、写入HI寄存器的值、写入LO寄存器的值
 3. 增加回写模块WB的输入输出接口
-![image](E:\笔记\Verilog\move\move_struct.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/move/md_images/move_struct.png)
 ## 添加HILO模块，实现HI、LO寄存器
 
 ```
@@ -65,7 +65,7 @@ end
 `define EXE_RES_MOVE 3'b011	
 ```
 其次在译码模块ID中根据六条指令的功能码判断是那一条指令：
-![image](E:\笔记\Verilog\move\select.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/move/md_images/select.png)
 
 - MFLO和MFHI:将特殊寄存器LO和HI赋给通用寄存器，则可以知道肯定是要修改寄存器的即wreg_o为`WriteEnable，而且不需要读取寄存器的值即reg1_read_o和reg2_read_o都为0，另外运算类型为`EXE_RES_MOVE
 - MTHI和MTLO:将通用寄存器的值赋值给特殊寄存器LO和HI,则可知不需要修改通用寄存器的值即wreg_o为`WriteDisable，需要读取端口1的寄存器的值,也就是指令中rs的值即reg1_read_o 为1，另外运算类型为`EXE_RES_NOP
@@ -407,5 +407,5 @@ _start:
 00002012
 ```
 仿真结果
-![image](E:\笔记\Verilog\move\test.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/move/md_images/test.png)
 
