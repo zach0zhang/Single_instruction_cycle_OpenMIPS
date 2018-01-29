@@ -3,7 +3,7 @@
 - 分支指令b、bal、beq、bgez、bgezal、bgtz、blez、bltz、bltzal、bne
 ### 跳转指令
 指令格式：
-![image](E:\笔记\Verilog\transfer\jump.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/transfer/md_images/jump.png)
 - **jr(功能码为6'b001000)**:用法：jr rs，作用：pc <- rs 将地址为rs的通用寄存器的值赋给寄存器PC，作为新的指令地址
 - **jalr(功能码为6'b001001)**：用法：jalr rs 或者 jalr rd,rs 作用：rd <- return_address,pc <- rs,将地址为rs的通用寄存器的值赋给寄存器PC，作为新的指令地址，同时将跳转指令后面第2条指令的地址作为返回地址保存到地址为rd的通用寄存器，**如果没有在指令中指明rd，那么默认将返回地址保存到寄存器$31**
 - **j(指令码为6'b000010)**：用法：j target，作用：pc <- (pc+4)[31,28]||target||'00',转移到新的指令地址，其中新地址的低28位是target左移两位后的值，新指令地址高4位是后一指令的高四位
@@ -13,7 +13,7 @@
 - **jal(指令码为6'b000011)**：用法：jal target，作用：pc <- (pc+4)[31,28]||target||'00',转移到新的指令地址，其中新地址的低28位是target左移两位后的值，新指令地址高4位是后一指令的高四位,**jal指令要将跳转指令后面的一条指令地址(pc+4)写入$31寄存器**
 ### 分支指令
 指令格式：
-![image](E:\笔记\Verilog\transfer\b.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/transfer/md_images/b.png)
 - 由指令格式可以看出：
     
     beq、b、bgtz、blez、bne这5条指令可以直接依据指令中的指令码进行判断是哪一条指令，bltz、bltzal、bgez、bgezal、bal这5条指令指令码相同，依据指令中16\~20bit的值进一步判断是哪一条指令
@@ -33,7 +33,7 @@
 - **bal(指令码为REGIMM,且第21\~25bit为0，第16\~20bit为5'b10001)**:用法：bal offset，作用：无条件转移，并且将指令后面的指令地址作为返回地址，保存到通用寄存器$31，**bal是bgezal指令的特殊情况，即bgezal指令的rs为0，不用特意实现这个指令**
 ## 修改系统结构
 增加了PC和ID模块的两个接口，用来表示是否跳转和跳转的指令地址，也增加了ID模块和EX模块的一个借口，用来表示将要保存的指令地址
-![image](E:\笔记\Verilog\transfer\transfer_struct.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/transfer/md_images/transfer_struct.png)
 
 ## 代码修改
 ### 1. 增加宏定义
@@ -95,7 +95,7 @@ always @ (posedge clk) begin
 
 ### 3. 修改译码阶段ID模块
 根据指令的指令码和功能码，以及指令有关bit位的特点来判断是哪一条指令
-![image](E:\笔记\Verilog\transfer\select.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/transfer/md_images/select.png)
 
 ```
 wire[`RegBus] pc_plus_4;
@@ -381,4 +381,4 @@ _loop:
 
 ```
 测试结果：
-![image](E:\笔记\Verilog\transfer\test.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/transfer/md_images/test.png)
