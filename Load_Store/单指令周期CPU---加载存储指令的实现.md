@@ -1,20 +1,20 @@
 ## 指令介绍
 ### 1. 加载指令
-![image](E:\笔记\Verilog\Load_Store\load.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/Load_Store/md_images/load.png)
 - **lb(指令码6'b100000)**：**字节**加载指令，用法：lb,rt,offset(base)，作用：从内存中指定的加载地址处，读取**一个字节**，然后**符号扩展**至32位，保存到地址为rt的通用寄存器中
 - **lbu(指令码6'b100100)**：**无符号字节**加载指令，用法：lbu,rt,offset(base)，作用：从内存中指定的加载地址处，读取**一个字节**，然后**无符号扩展**至32位，保存到地址为rt的通用寄存器中
 - **lh(指令码6'b100001)**：**半字**加载指令，用法：lh,rt,offset(base)，作用：从内存中指定的加载地址处，读取**一个半字**，然后**符号扩展**至32位，保存到地址为rt的通用寄存器中**该指令有地址对齐要求，要求计算出来的存储地址的最低两位为0**
 - **lhu(指令码6'b100101)**：**无符号半字**加载指令，用法：lhu,rt,offset(base)，作用：从内存中指定的加载地址处，读取**一个半字**，然后**无符号扩展**至32位，保存到地址为rt的通用寄存器中**该指令有地址对齐要求，要求计算出来的存储地址的最低两位为0**
 - **lw(指令码6'b100011)**：字加载指令，用法：lw,rt,offset(base)，作用：从内存中指定的加载地址处，读取**一个字**，保存到地址为rt的通用寄存器中。**该指令有地址对齐要求，要求加载地址的最低两位为00**
 ### 2. 存储指令
-![image](E:\笔记\Verilog\Load_Store\Store.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/Load_Store/md_images/Store.png)
 - **sb(指令码为6'b101000)**：**字节**存储指令，用法：sb rt,offset(base)，作用：将地址为rt的通用寄存器的值存储到内存中的指定地址。
 - **sh(指令码为6'b101001)**：**半字**存储指令，用法：sh rt,offset(base)，作用：将地址为rt的通用寄存器的值存储到内存中的指定地址。**该指令有地址对齐要求，要求计算出来的存储地址的最低两位为0**
 - **sw(指令码为6'b101011)**：**字**存储指令，用法：sw rt,offset(base)，作用：将地址为rt的通用寄存器的值存储到内存中的指定地址。**该指令有地址对齐要求，要求计算出来的存储地址的最低两位为00**
 
 ## 修改系统结构
 增加了访存阶段MEM模块和RAM，和相关的接口
-![image](E:\笔记\Verilog\Load_Store\LS_struct.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/Load_Store/md_images/LS_struct.png)
 ### 1. 增加访存阶段MEM模块
 之前因为不需要访问内存，所以在改变MIPS五级流水线线时省略了只用来传递数据的访存阶段，现在需要加上访存阶段，访存阶段需要通过执行阶段EX传递过来的信息，根据具体的加载、存储指令来对数据存储器RAM进行读/写操作
 
@@ -370,5 +370,5 @@ _loop:
 
 ```
 测试结果：
-![image](E:\笔记\Verilog\Load_Store\test.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/Load_Store/md_images/test.png)
 
