@@ -11,7 +11,9 @@
 
 
 内存示意图如下：
-![image](F:\笔记\Verilog\fpga/1.png)
+
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/fpga/md_images/1.png)
+
 从图中可以看出来对应的地址分别是
 
 外设 | 地址
@@ -35,7 +37,7 @@ define.v:
 通过在WB访存模块中对要访问的地址进行判断，决定要对IO或者data_ram模块两者之一进行操作
 
 增加IO模块后的系统结构图：
-![image](F:\笔记\Verilog\fpga/LS_Struct.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/fpga/md_images/LS_Struct.png)
 
 ### 1. 增加IO模块
 IO模块代码：
@@ -465,5 +467,4 @@ s4:
 ```
 
 通过对两个八位的开关进行二进制值的捕获，用按键来选择加、减或者乘，在数码管和led灯上以二进制形式展示结果
-
-![image](F:\笔记\Verilog\fpga/3.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/fpga/md_images/3.png)
