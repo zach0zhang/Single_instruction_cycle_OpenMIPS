@@ -37,7 +37,7 @@ define.v:
 通过在WB访存模块中对要访问的地址进行判断，决定要对IO或者data_ram模块两者之一进行操作
 
 增加IO模块后的系统结构图：
-![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/fpga/md_images/LS_Struct.png)
+![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/fpga/md_images/LS_struct.png)
 
 ### 1. 增加IO模块
 IO模块代码：
