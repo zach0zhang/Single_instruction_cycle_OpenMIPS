@@ -9,7 +9,7 @@
 4. [simple_arithmetic_1](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/tree/master/simple_arithmetic_1):在之前实现的基础上继续增加了15条简单算术操作指令（add、addi、addiu、addu、sub、subu、clo、clz、slt、slti、sltiu、sltu、mul、mult、multu）
 5. [transfer](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/tree/master/transfer)：在之前实现的基础上继续增加了14条（实际上是12条）简单算术操作指令（jr、jalr、j、jar、b、bal、beq、bgez、bgezal、bgtz、blez、bltz、bltzal、bne） 
 6. [Load_Store](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/tree/master/Load_Store)：在之前实现的基础上继续增加了加载、存储指令，系统结构上增加了访存模块和RAM 
-7. [fpga](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/tree/master/fpag)：对EGO1开发板的外设（发光二极管、数码管、开关、按键）进行操作，对内存和外设实行统一编址 
+7. [fpga](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/tree/master/fpga)：对EGO1开发板的外设（发光二极管、数码管、开关、按键）进行操作，对内存和外设实行统一编址 
 
 ### 系统结构图：
 ![image](https://github.com/zach0zhang/Single_instruction_cycle_OpenMIPS/blob/master/Load_Store/md_images/LS_struct.png)
